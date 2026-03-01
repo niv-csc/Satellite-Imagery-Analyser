@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #0a0c10;
+  --color-bg-secondary: #14181c;
+  --color-bg-tertiary: #1e2329;
+  --color-accent-primary: #3b82f6;
+  --color-accent-secondary: #8b5cf6;
+  --color-border-color: #2a2f38;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-primary text-white overflow-hidden;
+  }
+}
+
+.map-container .maplibregl-ctrl-logo,
+.map-container .maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.search-container {
+  @apply relative pointer-events-auto;
+}
+
+.suggestions-list {
+  @apply absolute top-full left-0 right-0 mt-2 bg-bg-secondary/95 backdrop-blur-2xl border border-border-color rounded-2xl shadow-2xl overflow-hidden z-[2000];
+}
+
+.suggestion-item {
+  @apply p-3 hover:bg-white/5 cursor-pointer border-b border-white/5 last:border-0 flex items-center gap-3 transition-colors;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-bg-tertiary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border-color rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}

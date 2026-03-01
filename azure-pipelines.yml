@@ -1,0 +1,58 @@
+# Azure Pipelines configuration
+trigger:
+  - main
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: 'SatelliteAnalyzer-Variables'
+
+steps:
+  # Frontend build
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      cd client
+      npm install
+      npm run build
+    displayName: 'Build Frontend'
+
+  # Backend build  
+  - script: |
+      cd server
+      npm install
+    displayName: 'Install Backend Dependencies'
+
+  # Python setup for AI service
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.9'
+    displayName: 'Use Python 3.9'
+
+  - script: |
+      cd ai
+      python -m venv venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+    displayName: 'Install Python Dependencies'
+
+  # Publish artifacts
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'client/dist'
+      ArtifactName: 'frontend'
+      
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'server'
+      ArtifactName: 'backend'
+      
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'ai'
+      ArtifactName: 'ai-service'

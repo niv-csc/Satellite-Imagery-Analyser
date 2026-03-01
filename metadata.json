@@ -1,0 +1,5 @@
+{
+  "name": "Satellite Imagery Analyzer",
+  "description": "AI-powered platform for satellite and astronomy image analysis, featuring authenticity verification, geospatial content analysis, and interactive mapping.",
+  "requestFramePermissions": []
+}
